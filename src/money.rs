@@ -44,6 +44,34 @@ impl Money {
         self.unpack().2
     }
 
+    /// Return the total amount of Money in copper
+    pub fn total_copper(&self) -> u64 {
+        self.0
+    }
+
+    pub fn can_afford(&self, price: Self) -> bool {
+        self.0 >= price.0
+    }
+
+    // Safe subtraction
+    pub fn checked_sub(self, rhs: Self) -> Option<Self> {
+        self.0.checked_sub(rhs.0).map(Money)
+    }
+
+    // Safe addition
+    pub fn checked_add(self, rhs: Self) -> Option<Self> {
+        self.0.checked_add(rhs.0).map(Money)
+    }
+
+    /// Calculates the fee cost for listing and selling,
+    /// rounds down using floor
+    pub fn calculate_fee(&self, rate: f64) -> Self {
+        let fee = (self.0 as f64 * rate).floor() as u64;
+        Money(fee)
+    }
+ 
+
+
 }
 
 // Get a nice output of the total amount of Money
