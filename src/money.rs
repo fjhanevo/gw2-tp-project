@@ -5,15 +5,15 @@ use std::ops::{Add, Sub};
 
 /// Use Copper to hold all currency in a single u64
 #[derive(Debug, PartialEq)]
-pub struct Money(pub u64);
+pub struct Money(pub u32);
 
 impl Money {
     // Conversions constants
-    pub const COPPER_PER_SILVER: u64    = 100;
-    pub const COPPER_PER_GOLD: u64      = 10_000;
+    pub const COPPER_PER_SILVER: u32    = 100;
+    pub const COPPER_PER_GOLD: u32      = 10_000;
 
     /// Initialize a new instance of Money
-    pub fn new(gold: u64, silver: u64, copper: u64) -> Self {
+    pub fn new(gold: u32, silver: u32, copper: u32) -> Self {
         let total = copper
             + (silver * Self::COPPER_PER_SILVER)
             + (gold * Self::COPPER_PER_GOLD);
@@ -21,7 +21,7 @@ impl Money {
     }
 
     /// Return the total Money as a tuple (gold, silver, copper)
-    pub fn unpack(&self) -> (u64, u64, u64) {
+    pub fn unpack(&self) -> (u32, u32, u32) {
         let gold = self.0 / Self::COPPER_PER_GOLD; 
         let remainder = self.0 % Self::COPPER_PER_GOLD;
         let silver = remainder / Self::COPPER_PER_SILVER;
@@ -30,22 +30,22 @@ impl Money {
     }
 
     /// Return the amount of gold
-    pub fn gold(&self) -> u64 {
+    pub fn gold(&self) -> u32 {
         self.unpack().0
     }
 
     /// Return the amount of silver 
-    pub fn silver(&self) -> u64 {
+    pub fn silver(&self) -> u32 {
         self.unpack().1
     }
 
     /// Return the amount of copper 
-    pub fn copper(&self) -> u64 {
+    pub fn copper(&self) -> u32 {
         self.unpack().2
     }
 
     /// Return the total amount of Money in copper
-    pub fn total_copper(&self) -> u64 {
+    pub fn total_copper(&self) -> u32 {
         self.0
     }
 
@@ -66,12 +66,10 @@ impl Money {
     /// Calculates the fee cost for listing and selling,
     /// rounds down using floor
     pub fn calculate_fee(&self, rate: f64) -> Self {
-        let fee = (self.0 as f64 * rate).floor() as u64;
+        let fee = (self.0 as f64 * rate).floor() as u32;
         Money(fee)
     }
  
-
-
 }
 
 // Get a nice output of the total amount of Money
