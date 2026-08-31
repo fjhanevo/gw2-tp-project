@@ -81,3 +81,9 @@ fn backoff_delay(attempt: u32) -> Duration {
     Duration::from_millis(200 * 2u64.pow(attempt.min(6)))
 }
 
+pub fn build_client() -> Result<Client, reqwest::Error> {
+    Client::builder()
+        .timeout(Duration::from_secs(10))
+        .user_agent("test")
+        .build()
+}
