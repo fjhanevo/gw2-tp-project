@@ -1,7 +1,11 @@
 mod money;
 mod account;
 mod inventory;
+mod api;
 
-fn main() {
+
+#[tokio::main]
+async fn main() -> Result<(), reqwest::Error> {
     println!("Hello, world!");
+    Ok(())
 }

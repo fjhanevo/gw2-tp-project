@@ -7,6 +7,7 @@ pub struct Item {
     pub name: String,
 }
 
+/// Represents the inventory of the account with Item and quantity
 #[derive(Debug, Clone, Default)]
 pub struct Inventory {
     pub items: HashMap<Item, u32>,
