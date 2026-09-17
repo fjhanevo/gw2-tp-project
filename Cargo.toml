@@ -1,14 +1,16 @@
-[package]
-name = "gw2-tp-project"
-version = "0.1.0"
-edition = "2024"
+[workspace]
+resolver = "3"
+members = [
+    "core",
+    "fetcher",
+]
 
-[dependencies]
+[workspace.dependencies]
+tokio = { version = "1", features = ["full"] }
 reqwest = { version = "0.13.4", features = ["blocking", "json"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-tokio = { version = "1", features = ["full"] }
-thiserror = "1"
-chrono = "0.4.45"
 sqlx = { version = "0.9.0", features = ["runtime-tokio", "postgres", "chrono", "macros"]}
+chrono = "0.4.45"
+thiserror = "1"
 dotenvy = "0.15.7"
